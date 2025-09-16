@@ -73,6 +73,16 @@ def insertion_sort(sequence: list[int]) -> None:
     None: The input list is sorted in place.
     """
 
+    for i in range(1, len(sequence)):
+        key = sequence[i]
+        j = i - 1
+
+        while j >= 0 and sequence[j] > key:
+            sequence[j + 1] = sequence[j]
+            j = j - 1
+
+        sequence[j + 1] = key
+
     # Write your code here based on the pseudocode provided in Lecture 11 Slide 6.
     # Ensure indexing starts from 0 in Python.
     # For the length of the sequence, use len(sequence).

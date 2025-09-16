@@ -74,6 +74,20 @@ def binary_search(sequence: list[int], target: int) -> int:
     int: The index of the target element if found, otherwise -1.
     """
  
+    i = 0
+    x = len(sequence) - 1
+
+    while i < x:
+        m = (i + j) // 2
+        if target > sequence[m]:
+            i = m + 1
+        else:
+            x = m
+    if i < len(sequence) and sequence[i] == target:
+        return i
+    else:
+        return -1
+
     # Write your code here based on the pseudocode provided in Lecture 11 Slide 11.
     # Ensure indexing starts from 0 in Python.
     # For the length of the sequence, use len(sequence).
