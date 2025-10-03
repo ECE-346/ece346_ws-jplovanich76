@@ -46,16 +46,22 @@ from graph_utils import generate_random_weighted_graph, test_dijkstra
 def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
     
     num_nodes = adj_matrix.shape[0]
-    L = [float('inf')] * num_nodes
-    L[source] = 0
-    pred = [None] * num_nodes
+    L = [float('inf')] * num_nodes      # will become the best-know distances, for now, initialized as infinity
+    L[source] = 0                       # starting point
+    pred = [None] * num_nodes           # will store the distances for the way back
     S = set()
 
     while target not in S:
         # Use the Pseudo code from L16 S14 as a guide
         # TODO: Write your code here
-
-
+        shawtest = 999999
+        u = None
+        for v in range(num_nodes):
+            if v not in S:
+                if L[v] < shawtest:
+                    shawtest = L[v]
+                    u = v
+        
         # If no reachable node remains, return empty path
         if u is None or L[u] == float('inf'):
             return []
@@ -65,12 +71,9 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
 
         # TODO: Write your code here
         for v in range(num_nodes):
-
-
-
-
-
-
+            if L[u] + adj_matrix[u, v] < L[v]:
+                L[v] = L[u] + adj_matrix[u, v]
+                pred[v] = u
 
     # Reconstruct path from target back to source
     path = []
