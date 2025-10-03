@@ -54,7 +54,7 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
     while target not in S:
         # Use the Pseudo code from L16 S14 as a guide
         # TODO: Write your code here
-        shawtest = 999999               # used to compare node number
+        shawtest = float('inf')               # used to compare node number
         u = None                        # initlaize n as None
         for v in range(num_nodes):      # for "v", being a node number, in "range(num_nodes)", whcih shows all the node number
             if v not in S:              
@@ -70,10 +70,12 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
         S.add(u)
 
         # TODO: Write your code here
-        for v in range(num_nodes):                      # scanning neighbors to update them
-            if L[u] + adj_matrix[u, v] < L[v]:          # checks if there's a shorter path to v using u, the current node
-                L[v] = L[u] + adj_matrix[u, v]          # update shortest distance to v
-                pred[v] = u
+        for v in range(num_nodes):       # scanning neighbors to update them
+            w = adj_matrix[u, v]         # define like psuedocode in slide
+            if v != u and w != 0:        #only checking adjacents, skips "fake" paths
+                if L[u] + w < L[v]:      # checks if there's a shorter path to v using u, the current node
+                    L[v] = L[u] + w      # update shortest distance to v
+                    pred[v] = u
 
     # Reconstruct path from target back to source
     path = []
