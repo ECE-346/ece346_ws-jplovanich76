@@ -45,7 +45,7 @@ from graph_utils import generate_random_weighted_graph, test_dijkstra
     
 def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
     
-    num_nodes = adj_matrix.shape[0]
+    num_nodes = adj_matrix.shape[0]     # num of nodes in the matrix
     L = [float('inf')] * num_nodes      # will become the best-know distances, for now, initialized as infinity
     L[source] = 0                       # starting point
     pred = [None] * num_nodes           # will store the distances for the way back
@@ -54,13 +54,13 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
     while target not in S:
         # Use the Pseudo code from L16 S14 as a guide
         # TODO: Write your code here
-        shawtest = 999999
-        u = None
-        for v in range(num_nodes):
-            if v not in S:
-                if L[v] < shawtest:
-                    shawtest = L[v]
-                    u = v
+        shawtest = 999999               # used to compare node number
+        u = None                        # initlaize n as None
+        for v in range(num_nodes):      # for "v", being a node number, in "range(num_nodes)", whcih shows all the node number
+            if v not in S:              
+                if L[v] < shawtest:     # if "L[v]", which is current shortest value [value at that node number], compared to the other shortest, as initialized 
+                    shawtest = L[v]     # update the shortest
+                    u = v               # define "u"
         
         # If no reachable node remains, return empty path
         if u is None or L[u] == float('inf'):
@@ -70,9 +70,9 @@ def dijkstra(adj_matrix: np.ndarray, source: int, target: int) -> list[int]:
         S.add(u)
 
         # TODO: Write your code here
-        for v in range(num_nodes):
-            if L[u] + adj_matrix[u, v] < L[v]:
-                L[v] = L[u] + adj_matrix[u, v]
+        for v in range(num_nodes):                      # scanning neighbors to update them
+            if L[u] + adj_matrix[u, v] < L[v]:          # checks if there's a shorter path to v using u, the current node
+                L[v] = L[u] + adj_matrix[u, v]          # update shortest distance to v
                 pred[v] = u
 
     # Reconstruct path from target back to source
